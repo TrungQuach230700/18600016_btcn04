@@ -1,0 +1,13 @@
+
+    <h2><%- currentUser? currentUser.displayName:'Khách' %></h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="number1" class="form-label">Số thứ nhất</label>
+            <input type="number" class="form-control" id="number1" name="number1">
+        </div>
+        <div class="mb-3">
+            <label for="number2" class="form-label">Số thứ hai</label>
+            <input type="number" class="form-control" id="number2" name="number2">
+            </div>
+        <button type="submit" class="btn btn-primary">Tính tổng</button>
+    </form>
