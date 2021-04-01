@@ -1,14 +1,41 @@
-const users=[{
-    id:1,
-    displayName:'TrungQuach',
-    email:'18600016@student.hcmus.edu.vn',
-    password:'kocopass',
-}];
+const { DataTypes } = require('sequelize');
 
-exports.findByEmail=function(email){
-    return users.find(u=>u.email===email)
+const db=require('./db');
+const User = db.define('User', {
+    // Model attributes are defined here
+    displayName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      // allowNull defaults to true
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        // allowNull defaults to true
+      },
+  });
+
+// const users=[{
+//     id:1,
+//     displayName:'TrungQuach',
+//     email:'18600016@student.hcmus.edu.vn',
+//     password:'kocopass',
+// }];
+
+User.findByEmail= async function(email){
+    return User.findOne({
+        where:{
+            email,
+        },
+    });
 };
 
-exports.findById=function(id){
-    return users.find(u=>u.id===id)
+User.findById= async function(id){
+    return User.findByPk(id);
 };
+
+module.exports=User;

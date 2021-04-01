@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const expressLayouts=require('express-ejs-layouts');
-const sumRouter=require('./routers/sum');
 const cookieSession = require('cookie-session');
+
+const db=require('./models/db');
+const sumRouter=require('./routers/sum');
+const todoRouter=require('./routers/todo');
 const authRouter=require('./routers/auth');
 const authMiddleware=require('./middlewares/auth');
 
@@ -20,6 +23,7 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 app.use('/sum',sumRouter);
 app.use('/auth',authRouter);
+app.use('/todo',todoRouter);
 
 app.get('/view',function(req,res){
     req.session.views = (req.session.views || 0) + 1;
@@ -30,7 +34,10 @@ app.get('/view',function(req,res){
 app.get('/',(req,res)=>{
   res.render('index',{title:'Trang chủ'});
 });
-const port=process.env.PORT || 3000;
-app.listen(port, () => {
+
+db.sync().then(function(){
+  const port=process.env.PORT || 3000;
+  app.listen(port, () => {
   console.log(`Server is listening on port ${port}`)
-})
+  })
+}).catch(console.error);

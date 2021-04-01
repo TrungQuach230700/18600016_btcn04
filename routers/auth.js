@@ -1,3 +1,4 @@
+const asyncHandler=require('express-async-handler');
 const User=require('../models/user');
 const express = require('express');
 const router = express.Router();
@@ -11,16 +12,16 @@ router.get('/login', (req, res) => {
     res.render('auth/login');
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', asyncHandler(async(req, res) => {
     const {email,password}=req.body;
-    const found=User.findByEmail(email);
-    if(found&&found.password===password){
-        req.session.userId=found.id;
-        res.redirect('/');
-    }else{
-        res.render('auth/login');
-    }
-});
+    const found= await User.findByEmail(email);
+        if(found&&found.password===password){
+            req.session.userId=found.id;
+            res.redirect('/');
+        }else{
+            res.render('auth/login');
+        }
+}));
 router.get('/logout',(req,res)=>{
     delete req.session.userId;
     res.redirect('/');
