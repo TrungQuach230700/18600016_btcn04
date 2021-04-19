@@ -17,6 +17,10 @@ const User = db.define('User', {
         allowNull: false,
         // allowNull defaults to true
       },
+    picture:{
+      type:DataTypes.BLOB,
+      allowNull:true,
+    }  
   });
 
 // const users=[{

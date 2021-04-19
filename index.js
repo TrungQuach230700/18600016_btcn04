@@ -8,6 +8,7 @@ const db=require('./models/db');
 const sumRouter=require('./routers/sum');
 const todoRouter=require('./routers/todo');
 const authRouter=require('./routers/auth');
+const userRouter=require('./routers/user');
 const authMiddleware=require('./middlewares/auth');
 
 app.use(cookieSession({
@@ -24,7 +25,8 @@ app.set('view engine', 'ejs');
 app.use('/sum',sumRouter);
 app.use('/auth',authRouter);
 app.use('/todo',todoRouter);
-
+app.use('/user',userRouter);
+app.use(express.static('public'));
 app.get('/view',function(req,res){
     req.session.views = (req.session.views || 0) + 1;
     res.send(`Bạn đã xem trang này ${req.session.views} lần`);

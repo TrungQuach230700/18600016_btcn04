@@ -19,6 +19,7 @@
               <a class="nav-link <%- title === 'Trang chủ' ? 'active':'' %>"href="/">Trang chủ</a>
               <% if(currentUser){ %>
               <a class="nav-link <%- title === 'Cộng hai số' ? 'active':'' %>" href="/sum">Cộng hai số</a>
+              <a class="nav-link <%- title === 'Thông tin cá nhân' ? 'active':'' %>" href="/user/profile"><%- currentUser.displayName %></a>
               <a class="nav-link" href="/auth/logout">Đăng xuất</a>
               <% } else { %>
               <a class="nav-link <%- title === 'Đăng nhập' ? 'active':'' %>" href="/auth/login">Đăng nhập</a>
